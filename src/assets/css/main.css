@@ -3,7 +3,7 @@
 }
 
 body {
-  background: #2554FF !important;
+  background: #e3e5e8 !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -114,3 +114,66 @@ label {
   transition: none;
   color: #222222;
 }
+/******************NOTIFY**********************/
+.success{
+  background:#82ff6bf2 !important;
+}
+
+.error{
+  background: #ffab2e !important;
+}
+
+.topPadding {
+  top: 56px !important;
+  padding-top: 10px !important;
+}
+.div-notify{
+  /*background-color: royalblue;*/
+  width: 600px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+
+}
+
+.notify{  
+  position:absolute;
+  top:53px;
+  width:100%;
+  height:0;  
+  box-sizing:border-box;
+  color:white; 
+  background-color: rgba(255, 255, 255, 0); 
+  text-align:center;
+  overflow:hidden;
+  box-sizing:border-box;
+  transition:height .2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+#notify-title{
+  font-size: xx-large;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+#notify-content{
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  color: black;
+}
+#notify-content > span {
+  font-weight: bolder;
+}
+
+.active{  
+  height:100px !important;
+  z-index: 99999;
+}
+/****************************************/

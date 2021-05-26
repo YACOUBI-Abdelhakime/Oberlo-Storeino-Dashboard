@@ -25,5 +25,6 @@
         </div>
       </div>
     </div>
+    <div class="notify"><div class="div-notify"><h3 id="notify-title"></h3> <p id="notify-content">...</p></div></div>
   </div>
 </template>
