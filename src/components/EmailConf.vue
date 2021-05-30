@@ -1,29 +1,39 @@
 <template>
-    <div class="vue-tempalte">
-        <form v-on:submit="confirm">
-            <h3>Email Confirm</h3>
+    <div class="App">
+        <Header />
+        <div class="vertical-center">
+            <div class="inner-block">
+                <div class="vue-tempalte">
+                    <form v-on:submit="confirm">
+                        <h3>Email Confirm</h3>
 
-            <p style="text-align:center;">You will receive your confirmation code in your email</p>
+                        <p style="text-align:center;">You will receive your confirmation code in your email</p>
 
-            <div class="form-group">
-                <label>Code</label>
-                <input id="code" type="text" class="form-control form-control-lg" required/>
+                        <div class="form-group">
+                            <label>Code</label>
+                            <input id="code" type="text" class="form-control form-control-lg" required/>
+                        </div>
+
+                        <input type="submit" class="btn btn-dark btn-lg btn-block" value="Confirm"/>
+                    </form> 
+                </div>
             </div>
-
-            <input type="submit" class="btn btn-dark btn-lg btn-block" value="Confirm"/>
-        </form> 
+        </div>
     </div>
+    
 </template>
 
 <script>
 import router from "../router"        
 import axios from "axios"
+import Header from '../components/Header'
 
     export default {
         data() {
             return {}
         },
         components:{
+            Header
         },
         methods: {
             confirm(e){
@@ -74,6 +84,7 @@ import axios from "axios"
                 return user;
             },
             setUser(user,token){
+                localStorage.clear();
                 localStorage.setItem('id',user._id)
                 localStorage.setItem('fullName',user.fullName)
                 localStorage.setItem('email',user.email)

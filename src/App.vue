@@ -1,7 +1,7 @@
 <template>
   <div class="vue-tempalte">
     <!-- Navigation -->
-    <nav class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top">
+    <!-- <nav class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top">
       <div class="container">
         <a class="navbar-brand float-left" href="https://www.positronx.io" target="_blank">
            positronX.io
@@ -15,16 +15,30 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </nav> 
+    <Header />-->
 
     <!-- Main -->
-    <div class="App">
-      <div class="vertical-center">
-        <div class="inner-block">
-          <router-view />
-        </div>
-      </div>
-    </div>
+    <router-view />
     <div class="notify"><div class="div-notify"><h3 id="notify-title"></h3> <p id="notify-content">...</p></div></div>
   </div>
 </template>
+<script>
+// import Header from './components/Header'
+// import router from "../router"  
+
+export default {
+	name: 'App',
+	data() {
+		return{}
+	},
+	components:{	},
+	methods:{
+
+	},
+	mounted() {	
+		
+	}
+}
+
+</script>

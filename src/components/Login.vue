@@ -1,42 +1,55 @@
 <template>
-    <div class="vue-tempalte">
-        <form v-on:submit="login">
-            <h3>Sign In</h3>
+    <div class="App">
+        <Header/>
+      <div class="vertical-center">
+        <div class="inner-block">
+          <div class="vue-tempalte">
+            <form v-on:submit="login">
+                <h3>Sign In</h3>
 
-            <div class="form-group">
-                <label>Email address</label>
-                <input type="email" id="email" class="form-control form-control-lg" required/>
-            </div>
+                <div class="form-group">
+                    <label>Email address</label>
+                    <input type="email" id="email" class="form-control form-control-lg" required/>
+                </div>
 
-            <div class="form-group">
-                <label v-on:click="showUser">Password</label>
-                <input type="password" id="password" class="form-control form-control-lg" required/>
-            </div>
+                <div class="form-group">
+                    <label v-on:click="showUser">Password</label>
+                    <input type="password" id="password" class="form-control form-control-lg" required/>
+                </div>
 
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
+                <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
 
-            <p class="forgot-password text-right mt-2 mb-4">
-                <router-link to="/forgot-password">Forgot password ?</router-link>
-            </p>
+                <p class="forgot-password text-right mt-2 mb-4">
+                    <router-link to="/forgot-password">Forgot password ?</router-link>
+                </p>
 
-            <div class="social-icons">
-                <ul>
-                    <li><a href="#"><i class="fa fa-google"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                </ul>
-            </div>
+                <div class="social-icons">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-google"></i></a></li>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    </ul>
+                </div>
 
-        </form>
+            </form>
+        </div>
+        </div>
+      </div>
     </div>
+    
 </template>
 
 <script>
 import axios from "axios"
+import router from "../router" 
+import Header from '../components/Header'
 
     export default {
         data() {
             return { }
+        },
+        components:{
+            Header
         },
         methods: {
             login(e){
@@ -52,7 +65,7 @@ import axios from "axios"
                     .then((resp) => {
                         if(resp.data.res == "ok") {
                             this.setUser(resp.data.user, resp.headers["x-token"])
-                            //router.push("/home")
+                            router.push("/home")
                             console.log("RESP :>"+resp.data.user.fullName)
                         }else{
                             document.getElementById("email").value =""
@@ -89,6 +102,12 @@ import axios from "axios"
                 setTimeout(function(){
                     document.querySelector(".notify").classList.remove("active");
                 },3000);
+            }
+        },
+        mounted() {
+            let name = localStorage.getItem('fullName')
+            if(name){
+                router.push("/home")
             }
         }
     }

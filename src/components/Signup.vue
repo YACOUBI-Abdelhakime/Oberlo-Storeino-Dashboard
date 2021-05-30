@@ -1,40 +1,52 @@
 <template>
-    <div class="vue-tempalte">
-        <form v-on:submit="signUp">
-            <h3>Sign Up</h3>
+    <div class="App">
+        <Header />
+        <div class="vertical-center">
+            <div class="inner-block">
+                <div class="vue-tempalte">
+                    <form v-on:submit="signUp">
+                        <h3>Sign Up</h3>
 
-            <div class="form-group">
-                <label>Full Name</label>
-                <input id="fullName" type="text" class="form-control form-control-lg"/>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input id="fullName" type="text" class="form-control form-control-lg"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email address</label>
+                            <input id="email" type="email" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input id="password" type="password" class="form-control form-control-lg" />
+                        </div>
+
+                        <button type="submit" class="btn btn-dark btn-lg btn-block">Sign Up</button>
+
+                        <p class="forgot-password text-right">
+                            Already registered 
+                            <router-link :to="{name: 'login'}">sign in?</router-link>
+                        </p>
+                    </form>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label>Email address</label>
-                <input id="email" type="email" class="form-control form-control-lg" />
-            </div>
-
-            <div class="form-group">
-                <label>Password</label>
-                <input id="password" type="password" class="form-control form-control-lg" />
-            </div>
-
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Sign Up</button>
-
-            <p class="forgot-password text-right">
-                Already registered 
-                <router-link :to="{name: 'login'}">sign in?</router-link>
-            </p>
-        </form>
+        </div>
     </div>
+    
 </template>
 
 <script>
 import axios from "axios"
 import router from "../router" 
+import Header from '../components/Header'
 
     export default {
         data() {
             return {}
+        },
+        components:{
+            Header
         },
         methods: {
             signUp(e){
@@ -51,8 +63,7 @@ import router from "../router"
                 axios.post("http://localhost:8085/user/emailConfirm", {email}) 
                     .then((resp) => {
                         if(resp.data.res == "ok") {
-                            let code = resp.data.code; 
-                            console.log("code : "+code)                           
+                            let code = resp.data.code;                           
                             this.setUserData(code,data)
                             router.push("/emailConf")
                         }else{ 
@@ -85,6 +96,12 @@ import router from "../router"
                 setTimeout(function(){
                     document.querySelector(".notify").classList.remove("active");
                 },3000);
+            }
+        },
+        mounted() {
+            let name = localStorage.getItem('fullName')
+            if(name){
+                router.push("/home")
             }
         }
     }

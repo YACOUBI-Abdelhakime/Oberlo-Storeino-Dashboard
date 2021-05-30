@@ -5,12 +5,12 @@ Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '/signup',
     name: 'signup',
     component: () => import('../components/Signup.vue')
   },
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: () => import('../components/Login.vue')
   },
@@ -28,6 +28,16 @@ Vue.use(VueRouter)
     path: '/emailConf',
     name: 'emailConf',
     component: () => import('@/components/EmailConf.vue')
+  },
+  {
+    path: '/product',
+    name: 'product',
+    component: () => import('@/components/Product.vue')
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('@/components/Profile.vue')
   }
 ]
 
