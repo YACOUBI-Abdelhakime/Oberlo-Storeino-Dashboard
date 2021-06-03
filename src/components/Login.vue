@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label v-on:click="showUser">Password</label>
+                    <label>Password</label>
                     <input type="password" id="password" class="form-control form-control-lg" required/>
                 </div>
 

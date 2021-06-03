@@ -1,5 +1,5 @@
 <template>
-  <div class="vue-tempalte">
+  <div class="vue-tempalte" id="body">
     <!-- Navigation -->
     <!-- <nav class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top">
       <div class="container">

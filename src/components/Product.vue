@@ -1,70 +1,126 @@
 <template>
     <div class="body">
         <Header />
-        <div class="basic-info">
-            <h5>Title</h5>
-            <textarea name="title" id="title" v-model="product.title" ></textarea>
-            <h5>Description</h5>
-            <textarea name="description" id="description" v-model="product.description" ></textarea>
-            <div class="div-price row">
-                <div class="price col-lg-4 col-md-6 col-sm-6">
-                    <h5>Sale price</h5>
-                    <input class="price-input" id="sale-price" type="text" v-model="product.salePrice">
-                </div>
-                <div class="price col-lg-4 col-md-6 col-sm-6">
-                    <h5>Compare price</h5>
-                    <input class="price-input" id="compare-price" type="text" v-model="product.comparePrice">
-                </div>
-                <div class="price col-lg-4 col-md-6 col-sm-6">
-                    <h5>Buying price</h5>
-                    <input class="price-input" id="buying-price" type="text" v-model="product.buyingPrice">
-                </div>
+    <div id="accordion" class="bottom-marge">
+
+        <div class="card">
+            <div @click="togeleOpen1" class="card-header" id="headerOne">
+                <h5 class="">Basic informations</h5>
+                <img src="https://img.icons8.com/material/24/000000/double-down--v1.png" >
+            </div>
+            <div id="collapseOne" class="collapse show close">
+                <!-- <div class="inner-div"> -->
+                    <div class=" card-body base-info">
+                        <h6>Title</h6>
+                        <input type="text" id="title" v-model="product.title" >
+                        <h6 class="h6-marge-top">Description</h6>
+                        <textarea name="description" id="description" v-model="product.description" ></textarea>
+                        <div class="div-price row">
+                            <div class="price col-lg-4 col-md-6 col-sm-6">
+                                <h6>Sale price</h6>
+                                <input class="price-input" id="sale-price" type="text" v-model="product.salePrice">
+                            </div>
+                            <div class="price col-lg-4 col-md-6 col-sm-6">
+                                <h6>Compare price</h6>
+                                <input class="price-input" id="compare-price" type="text" v-model="product.comparePrice">
+                            </div>
+                            <div class="price col-lg-4 col-md-6 col-sm-6">
+                                <h6>Buying price</h6>
+                                <input class="price-input" id="buying-price" type="text" v-model="product.buyingPrice">
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
             </div>
         </div>
-        
-        <div class="div-container">
-            <h5 class="title">Images</h5>
-            <div class="images row">
-                <div class="div-imgs col-sm-4 col-lg-2 col-md-3" v-for="(image,index) in product.images" v-show="image != null" :id="image" v-bind:key="image">
-                    <div class="card">
-                        <div class="img-product">
-                            <img :src="image" >
+        <div class="card">
+            <div @click="togeleOpen2" class="card-header" id="headerTow">
+                <h5 class="text-xl font-semibold">Images</h5>
+                <img src="https://img.icons8.com/material/24/000000/double-down--v1.png" >
+            </div>
+
+            <div id="collapseTow" class="collapse show close">
+                <div class="card-body">
+                    <div class="images row">
+                        <div class="div-imgs  col-sm-4 col-lg-2 col-md-3" >
+                            <div class="card border-none">
+                                <div class="add-img">
+                                    <img src="../assets/add-img.png" >
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-inner btns">
-                            <button v-on:click="removeImg(index)" class="btn remove-btn action-btn"><img src="../assets/remove.png" alt="remove"></button>
-                            <button v-on:click="viewImage(image)"  class="btn view-btn action-btn"><img src="../assets/view.png" alt="remove"></button>
+                        <div class="div-imgs col-sm-4 col-lg-2 col-md-3" v-for="(image,index) in product.images" v-show="image != null" :id="image" v-bind:key="index">
+                            <div class="card">
+                                <div class="img-product">
+                                    <img :src="image" >
+                                </div>
+                                <img v-on:click="removeImg(index)" class="float-btn" src="../assets/red-drop.png"/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="div-container">
-            <h5 class="title">Properties</h5>
-            <div id="properties" class="properties row"> 
-                <div class="div-prop col-lg-4 col-md-6 col-sm-12" v-for="(property,index) in product.properties"  v-bind:key="index" >
-                    <div class="title-prop">
-                        <input type="text" v-model="property.title">
-                        <button v-on:click="removeProp(index)" class="btn remove-btn btn-prop radius"><img src="../assets/remove.png" alt="remove"></button>
-                    </div>
-                    <div id="content-prop" class="content-prop row">
-                        <div class="value-prop col-lg-6 col-md-6 col-sm-4" v-for="(value,index) in property.list" v-bind:key="index" >
-                            <input class="input-value-prop" type="text" v-model="property.list[index]">
-                            <button v-on:click="removePropValue(property,index)" class="btn-value-prop btn btn-prop"><img src="../assets/drop.png" alt="remove"></button>
+
+        <div class="card">
+            <div @click="togeleOpen3" class="card-header" id="headerThree">
+                <h5 class="">Properties</h5>
+                <img src="https://img.icons8.com/material/24/000000/double-down--v1.png" >
+            </div>
+            <div id="collapseThree" class="collapse show close">
+                <div class="card-body">
+                    <button v-on:click="addProp(product.properties)" class="btn btn-block btn-add-prop">+ Add new property</button>
+                    <div id="properties" class="properties row"> 
+                        <div class="div-prop col-lg-4 col-md-6 col-sm-12" v-for="(property,index) in product.properties"  v-bind:key="index" >
+                            <div class="title-prop">
+                                <input type="text" v-model="property.title">
+                                <div class="prop-actions">
+                                    <div>
+                                        <img v-on:click="addPropValue(property)" src="../assets/blue-add.png"/>
+                                    </div>
+                                    <div>
+                                        <img v-on:click="removeProp(index)" src="../assets/red-drop.png"/>
+                                    </div>
+                                </div>
+                                <!-- <button v-on:click="removeProp(index)" class="btn remove-btn btn-prop radius"><img src="../assets/remove.png" alt="remove"></button> -->
+                            </div>
+                            <div id="content-prop" class="content-prop row">
+                                <div class="value-prop col-lg-6 col-md-6 col-sm-4" v-for="(value,index) in property.list" v-bind:key="index" >
+                                    <input class="input-value-prop" type="text" v-model="property.list[index]">
+                                    <button v-on:click="removePropValue(property,index)" class=""><img src="../assets/drop.png" alt="remove"></button>
+                                </div>
+                            </div>
                         </div>
-                        <div id="add-prop-value-btn" class="value-prop col-lg-6 col-md-6 col-sm-4">
-                            <button v-on:click="addPropValue(property)" class="grren btn-value-prop btn btn-prop" data-toggle="tooltip" data-placement="bottom" title="Add new Value"><img src="../assets/add.png"></button>
-                        </div>
                     </div>
-                </div> 
-                <div class="div-add-prop col-lg-4 col-md-6 col-sm-12">
-                        <button v-on:click="addProp(product.properties)" class="btn btn-add-prop" data-toggle="tooltip" data-placement="bottom" title="Add new Property"><img src="../assets/add.png"></button>
-                </div> 
+                </div>
             </div>
         </div>
-        <div >
-            <button @click="save" class="btn btn-primary btn-save">Save</button>
-            <button @click="deleteProduct" class="btn btn-danger btn-save">Save</button>
-            <button @click="cancel" class="btn btn-secondary btn-cancel">Cancel</button>
+    </div>
+        <div @click="dropStoreinoToken" class="footer px-4 py-3 rounded">
+            <button @click="save" class="btn-size btn btn-primary btn-save">Save</button>
+            <button @click="ExportProduct(product)" class="btn-size btn btn-primary btn-save">Export</button>
+            <button @click="deleteProduct" class="btn-size btn btn-danger btn-save">Delete</button>
+            <button @click="cancel" class="btn-size btn btn-secondary btn-cancel">Cancel</button>
+        </div>
+        <div class="div-1">
+            <div class="div-2">
+                <form v-on:submit="storeinoLogin">
+                    <h3>Storeino Sign In</h3>
+
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="email" id="email" class="form-control form-control-lg" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="password" class="form-control form-control-lg" required/>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
+                    <button @click="cancel_2" class="btn btn-block">Cancel</button>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -74,6 +130,7 @@ import axios from 'axios'
 import router from "../router" 
 import _ from 'lodash';
 import Header from '../components/Header'
+import jwt_decode from "jwt-decode";
 
     export default {
         data() {
@@ -84,13 +141,43 @@ import Header from '../components/Header'
                 sale_price:"...",
                 imgRemoved :[],
                 videVProp : "...",
-                newValuesProp : ""
+                newValuesProp : "",
+                storeinoToken :"",
+                storId:"",
+                productToExport : ""
             }
         },
         components:{
             Header
         },
         methods:{
+            togeleOpen1(){
+                document.querySelector('#collapseOne').classList.toggle("close")
+                let src = document.querySelector("#headerOne > img").getAttribute("src");
+                if(src.includes("double-up")){
+                    document.querySelector("#headerOne > img").setAttribute("src","https://img.icons8.com/material/24/000000/double-down--v1.png") 
+                }else{
+                    document.querySelector("#headerOne > img").setAttribute("src","https://img.icons8.com/material/24/000000/double-up--v1.png") 
+                }
+            },
+            togeleOpen2(){
+                document.querySelector('#collapseTow').classList.toggle("close")
+                let src = document.querySelector("#headerTow > img").getAttribute("src");
+                if(src.includes("double-up")){
+                    document.querySelector("#headerTow > img").setAttribute("src","https://img.icons8.com/material/24/000000/double-down--v1.png") 
+                }else{
+                    document.querySelector("#headerTow > img").setAttribute("src","https://img.icons8.com/material/24/000000/double-up--v1.png") 
+                }
+            },
+            togeleOpen3(){
+                document.querySelector('#collapseThree').classList.toggle("close")
+                let src = document.querySelector("#headerThree > img").getAttribute("src");
+                if(src.includes("double-up")){
+                    document.querySelector("#headerThree > img").setAttribute("src","https://img.icons8.com/material/24/000000/double-down--v1.png") 
+                }else{
+                    document.querySelector("#headerThree > img").setAttribute("src","https://img.icons8.com/material/24/000000/double-up--v1.png") 
+                }
+            },
             getUser(){
                 let user = {
                     id : localStorage.getItem('id'),
@@ -131,19 +218,112 @@ import Header from '../components/Header'
                     document.querySelector(".notify").classList.remove("active");
                 },3000);
             },
+            showOk(message){
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
+
+                document.querySelector(".div-notify").classList.add("success");
+                document.querySelector(".div-notify").classList.remove("error");
+                document.querySelector("#notify-title").style.color = "green"
+                document.querySelector("#notify-title").innerHTML="Success.";
+                document.querySelector("#notify-content").innerHTML="<span>"+message+"</span>";
+
+                document.querySelector(".notify").classList.toggle("active");
+                
+                setTimeout(function(){
+                    document.querySelector(".notify").classList.remove("active");
+                },3000);
+            },
             deleteProduct(e){
                 e.preventDefault() 
-                let header = { headers: {"x-token": this.user.token}}
-                axios.post("http://localhost:8085/product/delete", {"id":this.product._id},header)    
+                if(confirm("Are you sure to delete this product !!")){
+                    let header = { headers: {"x-token": this.user.token}}
+                    axios.post("http://localhost:8085/product/delete", {"id":this.product._id},header)    
+                        .then((resp) => {
+                            if(resp.data.res == "ok") {
+                                router.push("/home")
+                            }else{
+                                this.showError(resp.data.message)
+                            } 
+                        })    
+                        .catch((error) => {
+                            this.showError(error.message)  
+                        })
+                }
+            },
+            storeinoLogin(e){
+                e.preventDefault()
+                axios.get("http://localhost:8085/user/tokenStoreino")    
                     .then((resp) => {
-                        if(resp.data.res == "ok") {
-                            router.push("/home")
-                        }else{
-                            this.showError(resp.data.message)
-                        } 
+                        localStorage.setItem('storeinoToken',resp.data.storeinoToken)
+                        this.storeinoToken = resp.data.storeinoToken;
+                        document.querySelector("div.div-1").classList.remove("activeLogin");
+                        this.showLogin()
                     })    
-                    .catch((error) => {
-                        this.showError(error.message)  
+                    .catch((error) => {    
+                        this.showError(error.message)
+                    })
+            },
+            dropStoreinoToken(){
+                localStorage.removeItem('storeinoToken')
+            },
+            ExportProduct(product){
+                this.productToExport = product;
+                this.showLogin();
+            },
+            showLogin(){
+                if(this.storeinoToken == "" || this.storeinoToken == null){
+                    document.querySelector("div.div-1").classList.add("activeLogin");
+                }else{
+                    this.SendToStoreino(this.productToExport)
+                }
+                
+            },
+            SendToStoreino(product){
+                let buyingPrice = product.buyingPrice.trim().split(" ")[0]/*.replace(".","").replace(",",".")*/
+                let comparePrice = product.comparePrice.trim().split(" ")[0]
+                let salePrice = product.salePrice.trim().split(" ")[0]
+                let tokenDecoded = jwt_decode(this.storeinoToken);
+                this.storId = tokenDecoded.store._id
+                let images =[]
+                product.images.forEach(url => {
+                    images.push({src:url,storeId: this.storId})
+                });
+                let options = []
+                product.properties.forEach(function(prop){
+                    let pValues = []
+                    if(prop.title == "Color" || prop.title == "Size"){
+                        prop.list.forEach(function(v){
+                            pValues.push({"value1":v,"value2":v})
+                        })
+                        options.push({"key":prop.title.toLowerCase(),"name":prop.title,"values":pValues})
+                    }else{
+                        prop.list.forEach(function(v){
+                            pValues.push({"value1":v})
+                        })
+                        options.push({"name":prop.title,"values":pValues})
+                    } 
+                })
+                let price = {buyingPrice: buyingPrice, salePrice: salePrice}
+                comparePrice != "" ? price.comparePrice= comparePrice : "WALO" 
+                let header = { headers: {"x-auth-token": this.storeinoToken}}
+                axios.post("https://api-stores.storeino.com/api/products/create", 
+                    {
+                        description: product.description.slice(0,248),
+                        images: images,
+                        name: product.title,
+                        options: options,
+                        price: price,
+                        seo: {keywords: [], description: product.description.slice(0,248), title: product.title},
+                        status: "PUBLISH",
+                    },header)    
+                    .then((resp) => {
+                        console.log(resp.data)
+                        this.showOk("Product successfully added to Storeino")
+                    })    
+                    .catch((error) => {    
+                        this.showError("ErrOOR login ="+error.message)  
+                        console.log(" Error :: "+error.message)
                     })
             },
             removeImg(index){
@@ -167,8 +347,12 @@ import Header from '../components/Header'
             cancel(){
                 router.push("/home")
             },
+            cancel_2(e){
+                e.preventDefault()
+                document.querySelector("div.div-1").classList.remove("activeLogin");
+            },
             save(){
-                let prod = _.pick(this.product,["images","title","description","price","properties","idUser"])
+                let prod = _.pick(this.product,["images","title","description","salePrice","buyingPrice","comparePrice","properties","idUser"])
 
                 let header = { headers: {"x-token": this.user.token}}
                 axios.post("http://localhost:8085/product/update", {"id":this.product._id,"product":prod},header)    
@@ -190,10 +374,16 @@ import Header from '../components/Header'
             if(!this.user.fullName){
                 router.push("/")
             }
+            this.storeinoToken = localStorage.getItem('storeinoToken')
+            console.log("SToken ::: "+this.storeinoToken)
         }
     }
 </script>
 <style scoped>
+.inner-div{
+    /* margin: 25px 10px; */
+    background-color: #f8f8f8;
+}
 .body{
     margin-top: 60px;
     display: flex;
@@ -207,7 +397,8 @@ import Header from '../components/Header'
     height: auto;
 }
 h5{
-    margin: 10px 0px;
+    margin: 5px 0px;
+    font-size: 1.25rem!important;
 }
 #title{
     width: 100%;
@@ -222,19 +413,27 @@ h5{
 }
 .price{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
 }
 .price-input{
-    width: 100px;
     height: auto;
-    margin-left: 15px;
     text-align: center;
+    margin-left: 0px;
+    width: 90%;
+}
+@media  (max-width: 575px) {
+    .price-input{
+        width: 100%;
+    }
 }
 .div-imgs{
     margin : 7px 00px;
-    padding: 2px 15px;
-    
+    padding: 2px 15px; 
+}
+.div-imgs:nth-child(1){
+    height: 170px;
 }
 .img-product{
     height: 170px;
@@ -247,20 +446,16 @@ h5{
     justify-content: space-around;
     align-items: center;
 }
-.action-btn{
-    width: 40px;
-    height: 40px;
+.float-btn{
+    width: 25px;
+    height: 25px;
+    right: 0px !important;
+    top: 0px !important;
+    position: absolute !important;
     border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
-.action-btn:hover {
+.float-btn:hover {
   box-shadow: 0 5px 5px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
-.action-btn>img{
-    width: 30px;
-    height: 30px;
 }
 
 .remove-btn{
@@ -272,9 +467,6 @@ h5{
 .properties{
     margin: 30px 20px !important;
     width: 97.5%;
-}
-#properties{
-    margin-left: 20px !important;
 }
 .div-container{
     margin: 0px 20px;
@@ -299,7 +491,8 @@ h5{
     align-items: center;
     justify-content: space-between;
     padding: 5px;
-    background-color: gray;
+    background-color: #d6d6d6;
+    height: 45px;
 }
 .content-prop{
     display: flex;
@@ -316,16 +509,35 @@ h5{
     justify-content: center;
     padding: 4px;
 }
-.input-value-prop{
+.value-prop>input{
     width: 90px;
-    height: 35px;
+    height: 30px;
     background-color: white;
     border: 1px solid black;
+    border-right: none;
+    border-radius: 7px 0 0 7px;
+    padding: 0 5px;
+
 }
-.btn-value-prop{
+.value-prop>button{
     background-color: white;
     border: 1px solid black;
-    border-radius: 0 !important;
+    border-left: none;
+    border-radius: 0 7px 7px 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    width: 30px;
+    height: 30px;
+    
+}
+.value-prop>button>img{
+    width: 20px;
+    height: 20px;
+}
+.value-prop>button>img:hover{
+    width: 25px;
+    height: 25px;
 }
 .btn-prop{
     width: 35px;
@@ -352,27 +564,19 @@ h5{
     margin-right: 0 !important;
 }
 .btn-add-prop{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    border: 1px solid black;
+    border: 1px solid rgb(54, 0, 179);
+    background-color: #007bff1f;
+    width: 60% !important;
+    color:#0065d1;
 }
 .btn-add-prop:hover {
-  box-shadow: 0 5px 5px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
-.btn-add-prop>img{
-    width: 40px;
-    height: 40px;
+    /* box-shadow: 0 5px 5px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); */
+    background-color: #007bff4d;
 }
 .div-add-prop{
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.btn-add-prop{
-    background-color: #2cf779;
 }
 .btn-save{
     /* width: auto; 
@@ -382,5 +586,115 @@ h5{
 .btn-cancel{
     margin: 2px 10px;
 }
+.footer {
+    position: fixed;
+    left: 30px;
+    bottom: 0;
+    right: 30px;
+    height: 60px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 4px solid #007bff;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3)!important;
+}
+.bottom-marge{
+    margin-bottom: 40px;
+}
+.h6-marge-top{
+    margin-top: 15px !important;
+}
+.close{
+    height: 0px !important;
+    overflow: hidden;
+    border-bottom: 0px !important;
+}
+#accordion{
+    width: 97%;
+}
+#accordion >.card{
+    border: none !important;
+    border-radius: 0 !important;
+    background-color: #fff0 !important;
+}
+.border-none{
+    border: none !important;
+}
+.card-body{
+    background-color: #ffffff;
+    margin: 15px 5px;
+    /* border: red 1px solid; */
+    border-radius: 5px;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.1)!important;
+}
+#collapseThree > .card-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.card-header{
+    background-color: #ffffff !important;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.1)!important;
+    border-radius: .5rem;
+    border:none !important;
+}
+.base-info textarea,.base-info input{
+    border-radius: 7px;
+    border: 1px solid #bbbbbb;
+    color: #747474;
+    padding: 1px 5px;
+}
+.card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-header >img{
+    height: 20px;
+    width: 20px;
+}
+.btn-size{
+    height: 40px !important;
+    width: 100px !important;
+}
+.collapse{
+    background-color: #fff0 !important;
+}
+.add-img{
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px #cccccc dashed;
+}
+.add-img > img{
+    width: 48px !important;
+    height: 48px !important;
+}
+.card-header > h5{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.3rem !important;
+    font-weight: 600!important;
+    color:#626262;
+}
+.prop-actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.prop-actions >div{
+    width: 36px;
+}
+.prop-actions >div> img{
+    height: 30px;
+    width: 30px;
+}
+.prop-actions >div> img:hover{
+    height: 35px;
+    width: 35px;
+}
+
 
 </style>
