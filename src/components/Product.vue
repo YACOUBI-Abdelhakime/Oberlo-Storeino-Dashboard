@@ -6,9 +6,9 @@
         <div class="card">
             <div @click="togeleOpen1" class="card-header" id="headerOne">
                 <h5 class="">Basic informations</h5>
-                <img src="https://img.icons8.com/material/24/000000/double-down--v1.png" >
+                <img src="https://img.icons8.com/material/24/000000/double-up--v1.png" >
             </div>
-            <div id="collapseOne" class="collapse show close">
+            <div id="collapseOne" class="collapse show">
                 <!-- <div class="inner-div"> -->
                     <div class=" card-body base-info">
                         <h6>Title</h6>
@@ -153,6 +153,8 @@ import jwt_decode from "jwt-decode";
         methods:{
             togeleOpen1(){
                 document.querySelector('#collapseOne').classList.toggle("close")
+                document.querySelector('#collapseTow').classList.add("close")
+                document.querySelector('#collapseThree').classList.add("close")
                 let src = document.querySelector("#headerOne > img").getAttribute("src");
                 if(src.includes("double-up")){
                     document.querySelector("#headerOne > img").setAttribute("src","https://img.icons8.com/material/24/000000/double-down--v1.png") 
@@ -162,6 +164,8 @@ import jwt_decode from "jwt-decode";
             },
             togeleOpen2(){
                 document.querySelector('#collapseTow').classList.toggle("close")
+                document.querySelector('#collapseOne').classList.add("close")
+                document.querySelector('#collapseThree').classList.add("close")
                 let src = document.querySelector("#headerTow > img").getAttribute("src");
                 if(src.includes("double-up")){
                     document.querySelector("#headerTow > img").setAttribute("src","https://img.icons8.com/material/24/000000/double-down--v1.png") 
@@ -171,6 +175,8 @@ import jwt_decode from "jwt-decode";
             },
             togeleOpen3(){
                 document.querySelector('#collapseThree').classList.toggle("close")
+                document.querySelector('#collapseOne').classList.add("close")
+                document.querySelector('#collapseTow').classList.add("close")
                 let src = document.querySelector("#headerThree > img").getAttribute("src");
                 if(src.includes("double-up")){
                     document.querySelector("#headerThree > img").setAttribute("src","https://img.icons8.com/material/24/000000/double-down--v1.png") 
@@ -272,7 +278,7 @@ import jwt_decode from "jwt-decode";
                 this.showLogin();
             },
             showLogin(){
-                if(this.storeinoToken == "" || this.storeinoToken == null){
+                if(localStorage.getItem("storeinoToken") == "" || localStorage.getItem("storeinoToken") == null){
                     document.querySelector("div.div-1").classList.add("activeLogin");
                 }else{
                     this.SendToStoreino(this.productToExport)

@@ -149,9 +149,13 @@ import jwt_decode from "jwt-decode";
                 this.showLogin();
             },
             showLogin(){
-                if(this.storeinoToken == "" || this.storeinoToken == null){
+                console.log("**S-Token : "+this.storeinoToken)
+                console.log("....S-Token : "+ localStorage.getItem("storeinoToken") )
+                // if(this.storeinoToken == "" || this.storeinoToken == null){
+                if(localStorage.getItem("storeinoToken") == "" || localStorage.getItem("storeinoToken") == null){
                     document.querySelector("div.div-1").classList.add("activeLogin");
                 }else{
+                    this.storeinoToken = localStorage.getItem("storeinoToken")
                     this.SendToStoreino(this.productToExport)
                 }
                 

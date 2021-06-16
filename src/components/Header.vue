@@ -1,6 +1,6 @@
 <template>
         <nav id="header" class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top">
-            <img height="35" src="../assets/logo-Storeino.png" title="Storeino" alt="storeino">
+            <router-link to="/home"><img height="35" src="../assets/logo-Storeino.png" title="Storeino" alt="storeino"></router-link>
             <ul v-if="this.user.fullName == null" class="nav navbar-nav flex-row float-right">
                 <li class="nav-item">
                     <router-link class="nav-link pr-3" to="/">Sign in</router-link>
